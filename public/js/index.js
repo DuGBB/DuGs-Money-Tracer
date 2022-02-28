@@ -8,18 +8,15 @@ fetch("/api/transaction")
   .then((data) => {
     // save db data on global variable
     transactions = data;
-    console.log(transactions);
     populateTotal();
     populateTable();
     populateChart();
   })
   .catch((err) => {
-    console.log("FUCK THIS");
     console.log(err);
   });
 
 function populateTotal() {
-  console.log("entering populatetotal");
   // reduce transaction amounts to a single total value
   let total = transactions.reduce((total, t) => {
     return total + parseInt(t.value);
@@ -27,11 +24,9 @@ function populateTotal() {
 
   let totalEl = document.querySelector("#total");
   totalEl.textContent = total;
-  console.log("leaving populateTotal");
 }
 
 function populateTable() {
-  console.log("entering populateTable");
   let tbody = document.querySelector("#tbody");
   tbody.innerHTML = "";
 
@@ -45,11 +40,9 @@ function populateTable() {
 
     tbody.appendChild(tr);
   });
-  console.log("leaving populateTable");
 }
 
 function populateChart() {
-  console.log("entering populateCharg");
   // copy array and reverse it
   let reversed = transactions.slice().reverse();
   let sum = 0;
@@ -87,7 +80,6 @@ function populateChart() {
       ],
     },
   });
-  console.log("Leaving populateChart");
 }
 
 function sendTransaction(isAdding) {
@@ -146,13 +138,8 @@ function sendTransaction(isAdding) {
     })
     .catch((err) => {
       // fetch failed, so save in indexed db
-      console.log("\n\n11----------------------------------");
-      console.log(
-        "Attempting to save the record because the transaction failed due to no internet network"
-      );
       console.log(err);
       saveRecord(transaction);
-      console.log("22----------------------------------\n\n");
 
       // clear form
       nameEl.value = "";

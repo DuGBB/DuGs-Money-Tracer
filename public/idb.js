@@ -18,7 +18,6 @@ request.onerror = function (event) {
 };
 
 function saveRecord(record) {
-  console.log(`Trying to save the record:\n\n${record}`);
   const transaction = db.transaction(["dugs_money_tracer"], "readwrite");
   const moneyObjectStore = transaction.objectStore("dugs_money_tracer");
   moneyObjectStore.add(record);
